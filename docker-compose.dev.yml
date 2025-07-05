@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # Development frontend
+  app-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - VITE_API_BASE_URL=http://localhost:3001/api
+    depends_on:
+      - mongo
+      - redis
+    networks:
+      - workflow-dev-network
+    restart: unless-stopped
+
+  # MongoDB for development
+  mongo:
+    image: mongo:6-jammy
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=workflow-dev
+    volumes:
+      - mongo-dev-data:/data/db
+    networks:
+      - workflow-dev-network
+    restart: unless-stopped
+
+  # Redis for development
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-dev-data:/data
+    networks:
+      - workflow-dev-network
+    restart: unless-stopped
+
+volumes:
+  mongo-dev-data:
+  redis-dev-data:
+
+networks:
+  workflow-dev-network:
+    driver: bridge
