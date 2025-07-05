@@ -1,0 +1,17 @@
+# Vercel ignore file
+node_modules
+.env.local
+.env.development
+.env.test
+*.log
+.DS_Store
+.git
+.gitignore
+README.md
+docs/
+.vscode/
+coverage/
+.nyc_output/
+docker-compose*.yml
+Dockerfile*
+nginx.conf

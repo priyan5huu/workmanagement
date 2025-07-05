@@ -12,8 +12,9 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: process.env.NODE_ENV !== 'production',
+    sourcemap: false,
     minify: 'terser',
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -26,8 +27,8 @@ export default defineConfig({
     },
     terserOptions: {
       compress: {
-        drop_console: process.env.NODE_ENV === 'production',
-        drop_debugger: process.env.NODE_ENV === 'production',
+        drop_console: true,
+        drop_debugger: true,
       },
     },
   },
