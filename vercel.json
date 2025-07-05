@@ -45,10 +45,5 @@
         }
       ]
     }
-  ],
-  "functions": {
-    "app/api/**/*.ts": {
-      "runtime": "@vercel/node"
-    }
-  }
+  ]
 }
